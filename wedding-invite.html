@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Юлия & Владислав | 16 мая 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --olive: #7a8c6a;
+  --gold: #c8a87a;
+  --cream: #faf6f1;
+  --text: #5a4a3a;
+  --light-text: #8a7a6a;
+  --dark: #3a3028;
+  --sage: #9aaa95;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+/* =============================================
+   BLOCK 1 — HERO
+   ============================================= */
+#block1 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6e8060;
+  position: relative;
+  overflow: hidden;
+}
+.block-video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.block-video-bg video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+.block-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(60, 72, 48, 0.45);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-wrap {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.hero-subtitle {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 28px;
+}
+
+.hero-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(64px, 13vw, 108px);
+  color: white;
+  line-height: 0.9;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  margin-bottom: 8px;
+}
+.hero-names .amp {
+  display: block;
+  font-size: 0.55em;
+  font-style: normal;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.4;
+}
+
+/* ---- КАЛЕНДАРИК ---- */
+.hero-calendar {
+  margin-top: 48px;
+  color: white;
+  position: relative;
+  padding-bottom: 90px;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 36px);
+  gap: 2px 0;
+  text-align: center;
+}
+
+.cal-weekdays span {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.55);
+  padding-bottom: 10px;
+  display: block;
+}
+
+.cal-days span {
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-days span.cal-selected {
+  position: relative;
+  color: white;
+  font-weight: 400;
+}
+
+/* Число 16 — выделяем белым, сердечко рисуется в SVG ниже */
+.cal-days span.cal-selected {
+  color: white;
+  font-weight: 400;
+}
+
+/* SVG линия + "май" рисуется через абсолютный элемент */
+.cal-decoration {
+  position: absolute;
+  top: -10px; /* сердечко чуть выше первой строки цифр */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+
+
+@media (max-width: 480px) {
+  .hero-names { font-size: 54px; }
+  .cal-grid { grid-template-columns: repeat(7, 30px); }
+}
+
+
+/* LETTER BLOCK */
+#block2-letter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #E0DDC8;
+  padding: 60px 20px;
+}
+
+.letter-block-wrap {
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+}
+
+.letter-block-inner {
+  border: 1px solid #8a8a7a;
+  outline: 1px solid #8a8a7a;
+  outline-offset: -8px;
+  padding: 60px 50px;
+  text-align: center;
+  background: #E0DDC8;
+}
+
+.letter-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #3a3028;
+  font-style: normal;
+  margin-bottom: 36px;
+}
+
+.letter-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: #3a3028;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+.letter-body:last-child { margin-bottom: 0; }
+
+/* TIMING */
+#block3 {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #6e8060;
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+#block3 .block-video-bg video { opacity: 0.6; }
+#block3::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(50, 62, 38, 0.52);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.timing-heading {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-align: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 40px;
+}
+
+.timing-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  padding: 60px 24px 60px; /* одинаковый отступ сверху и снизу */
+}
+
+/* Убираем сплошную линию */
+.timeline-line { display: none; }
+
+/* Линия сверху — от верха до первого кружка */
+.tl-line-top {
+  position: absolute;
+  left: 64px;
+  top: 0;
+  height: 60px; /* padding-top timing-wrap */
+  width: 1px;
+  background: rgba(255,255,255,0.4);
+  z-index: 0;
+}
+
+/* Линия снизу — от последнего кружка до низа */
+.tl-line-bottom {
+  position: absolute;
+  left: 64px;
+  bottom: 0;
+  height: 60px; /* padding-bottom timing-wrap */
+  width: 1px;
+  background: rgba(255,255,255,0.4);
+  z-index: 0;
+}
+
+/* Линия между пунктами — от низа одного кружка до верха следующего */
+.timeline-item {
+  position: relative;
+}
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 39px; /* 40px (центр кружка) - 1px */
+  top: 80px;  /* ниже кружка */
+  bottom: -56px; /* до следующего item (margin-bottom: 56px) */
+  width: 1px;
+  background: rgba(255,255,255,0.4);
+  z-index: 0;
+}
+.timeline-item:last-child::after { display: none; }
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  position: relative;
+  margin-bottom: 56px;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+
+/* Кружок с фото */
+.tl-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  /* Начальное состояние: почти невидимое */
+  opacity: 0.08;
+  filter: grayscale(100%) blur(1px);
+  transform: scale(0.9);
+  transition: none;
+  background: #6e8060;
+}
+.tl-photo.visible {
+  opacity: 1;
+  filter: grayscale(0%) blur(0px);
+  transform: scale(1);
+}
+.tl-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Точка на линии */
+.tl-dot {
+  position: absolute;
+  left: 16px; /* 56px - 40px (половина кружка) + корректировка */
+  top: 28px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid rgba(255,255,255,0.6);
+  z-index: 3;
+}
+
+.tl-content {
+  padding-top: 6px;
+}
+
+.tl-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: white;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.tl-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.3;
+}
+
+/* Точки сверху и снизу — ровно на линии */
+.tl-cap {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  left: 58px; /* 64px - 6px */
+  top: 0;
+  z-index: 3;
+}
+.tl-cap-bottom {
+  top: auto;
+  bottom: 0;
+}
+
+
+/* LOCATION */
+#block4 { min-height:80vh; display:flex; align-items:center; justify-content:center; background: url(venue.jpg) center 20%/cover no-repeat; padding:80px 20px 0px; position:relative; }
+#block4::before { content:""; position:absolute; inset:0; background:rgba(30,25,20,0.52); z-index:0; }
+#block4 .section-label { color:rgba(255,255,255,0.65); }
+#block4 .section-title { color:white; }
+#block4 .location-wrap { position:relative; z-index:1; background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 8px; padding: 40px 36px; border: 1px solid rgba(255,255,255,0.15); }
+#block4 .map-btn { border-color:rgba(255,255,255,0.6); color:white; }
+#block4 .map-btn:hover { background:rgba(255,255,255,0.15); border-color:white; }
+.location-wrap { text-align:center; max-width:500px; }
+.location-icon { font-size:40px; margin-bottom:20px; display:block; }
+.venue-photo { width:100%; max-width:460px; height:260px; object-fit:cover; border-radius:4px; margin-bottom:24px; box-shadow:0 8px 30px rgba(0,0,0,0.12); }
+.location-text { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; color:rgba(255,255,255,0.95); line-height:1.7; font-style:italic; margin:20px 0 30px; }
+.map-btn { display:inline-block; padding:14px 40px; background:transparent; border:1px solid var(--sage); color:var(--text); font-family:'Jost',sans-serif; font-size:12px; font-weight:300; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:all 0.3s; }
+.map-btn:hover { background:var(--sage); color:white; }
+
+/* DRESS CODE */
+#block5 { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#E0DDC8; padding:0px 20px 10px; margin-top:-250px; }
+.dresscode-wrap { text-align:center; max-width:560px; }
+
+.dc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding: 12px 0;
+  border-top: 1px solid var(--text);
+  border-bottom: 1px solid var(--text);
+  display: inline-block;
+}
+.dc-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--light-text);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+.dc-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+.dc-circles {
+  display: flex;
+  align-items: center;
+}
+.dc-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.12);
+  flex-shrink: 0;
+  opacity: 0.08;
+  filter: grayscale(100%) blur(1px);
+  transform: scale(0.9);
+  transition: none;
+}
+.dc-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text);
+  white-space: nowrap;
+}
+.dc-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--light-text);
+  line-height: 1.7;
+  margin-top: 16px;
+  margin-bottom: -400px;
+}
+.dc-invite-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 20px 0;
+  padding: 10px 0;
+  border-top: 1px solid rgba(90,74,58,0.4);
+  border-bottom: 1px solid rgba(90,74,58,0.4);
+  display: inline-block;
+}
+.palette { display:flex; gap:12px; justify-content:center; margin:30px 0; flex-wrap:wrap; }
+.palette-swatch { width:50px; height:70px; border-radius:25px; box-shadow:0 4px 12px rgba(0,0,0,0.08); transition:transform 0.3s; }
+.palette-swatch:hover { transform:translateY(-4px); }
+.dresscode-note { font-family:'Jost',sans-serif; font-size:14px; font-weight:300; color:var(--light-text); line-height:1.9; padding:30px; border:1px solid rgba(200,168,122,0.25); background:rgba(255,255,255,0.4); }
+
+/* YES/NO BLOCK */
+#block5b {
+  background: #E0DDC8;
+  padding: 0px 20px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yn-wrap {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+.yn-oldmoney {
+  width: 400px;
+  display: block;
+  margin: -20px auto -130px;
+}
+.yn-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 3px;
+  color: var(--text);
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+.yn-cols {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.yn-card {
+  flex: 1;
+  background: linear-gradient(145deg, #f0ead8, #e8e0cc);
+  border-radius: 16px;
+  padding: 28px 20px 24px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+.yn-badge {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--text);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: var(--text);
+  background: #E0DDC8;
+  margin: -52px auto 20px;
+}
+.yn-items {
+  text-align: center;
+}
+.yn-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 12px 0;
+}
+.yn-divider {
+  width: 60%;
+  margin: 12px auto;
+  border-top: 1px dashed rgba(90,74,58,0.35);
+}
+
+/* OUTFITS */
+#block5c {
+  background: #E0DDC8;
+  padding: 20px;
+  text-align: center;
+}
+.outfits-img {
+  width: 100%;
+  max-width: 700px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* FAQ */
+#block6 { background:#E0DDC8; padding:80px 20px; }
+.faq-wrap { max-width:560px; margin:0 auto; text-align:left; }
+.faq-intro {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-weight:400;
+  font-style:italic;
+  color:var(--dark);
+  line-height:1.8;
+  text-align:center;
+  margin-bottom:48px;
+}
+.faq-item {
+  margin-bottom:0;
+  padding:28px 0;
+  border-bottom:1px solid rgba(90,74,58,0.15);
+}
+.faq-item:last-child { border-bottom:none; }
+.faq-accordion .faq-q {
+  cursor: pointer;
+  user-select: none;
+  justify-content: space-between;
+  transition: color 0.3s;
+}
+.faq-accordion .faq-q:hover { color: var(--gold); }
+.faq-arrow {
+  font-family: 'Jost', sans-serif;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-arrow.open { transform: rotate(45deg); }
+.faq-collapsed {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease;
+  opacity: 0;
+  padding-top: 0 !important;
+}
+.faq-collapsed.open {
+  max-height: 600px;
+  opacity: 1;
+  padding-top: 12px !important;
+}
+.faq-q {
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  font-weight:500;
+  color:#2a1f14;
+  margin-bottom:10px;
+  font-style:italic;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.faq-q::before {
+  content:'';
+  display:inline-block;
+  width:20px;
+  height:1px;
+  background:var(--gold);
+  flex-shrink:0;
+}
+.faq-a {
+  font-family:'Jost',sans-serif;
+  font-size:16px;
+  font-weight:400;
+  color:#2a1f14;
+  line-height:1.9;
+  padding-left:30px;
+}
+.faq-header {
+  text-align:center;
+  margin-bottom:48px;
+}
+.faq-header-label {
+  font-family:'Jost',sans-serif;
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:12px;
+}
+.faq-header-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;
+  font-weight:400;
+  color:var(--dark);
+  padding:12px 0;
+  border-top:1px solid var(--text);
+  border-bottom:1px solid var(--text);
+  display:inline-block;
+}
+.train-schedule { margin:12px 0 16px 0; }
+.train-row { display:flex; gap:16px; align-items:center; margin-bottom:6px; font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:var(--dark); }
+.train-time { min-width:50px; }
+.organizer-card { display:flex; align-items:center; gap:16px; margin-top:16px; background:rgba(90,74,58,0.06); border-radius:12px; padding:16px 20px; }
+.organizer-initial { width:44px; height:44px; border-radius:50%; background:var(--sage); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:22px; color:white; flex-shrink:0; }
+.organizer-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:var(--dark); }
+.organizer-phone { font-family:'Jost',sans-serif; font-size:14px; font-weight:300; color:var(--gold); letter-spacing:1px; margin-top:2px; }
+.train-schedule { display:flex; flex-direction:column; gap:8px; margin:12px 0; padding:16px 20px; background:rgba(255,255,255,0.5); border-left:2px solid var(--gold); }
+.train-row { display:flex; gap:16px; font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--text); }
+.train-time { color:var(--gold); min-width:60px; }
+.organizer-card { display:flex; align-items:center; gap:20px; padding:20px; background:rgba(255,255,255,0.5); border:1px solid rgba(200,168,122,0.3); margin-top:12px; }
+.organizer-initial { width:52px; height:52px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:22px; color:white; font-style:italic; flex-shrink:0; }
+.organizer-name { font-size:18px; font-family:'Cormorant Garamond',serif; color:var(--dark); margin-bottom:4px; }
+.organizer-phone { color:var(--gold); font-size:15px; letter-spacing:1px; font-family:'Jost',sans-serif; font-weight:300; }
+
+/* TELEGRAM */
+#block7 {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #E0DDC8;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.telegram-wrap { text-align:center; max-width:480px; position:relative; z-index:2; }
+.tg-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(90,74,58,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+  background: rgba(90,74,58,0.08);
+}
+.tg-icon svg { width:32px; height:32px; fill:var(--dark); }
+.tg-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: var(--dark);
+  padding: 12px 0;
+  border-top: 1px solid var(--text);
+  border-bottom: 1px solid var(--text);
+  display: inline-block;
+  margin-bottom: 24px;
+}
+.tg-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.circle-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.8;
+  margin: 24px 0 32px;
+  padding: 20px 24px;
+  border: 1px solid rgba(90,74,58,0.2);
+  border-radius: 2px;
+  background: rgba(90,74,58,0.04);
+}
+.tg-btn {
+  display: inline-block;
+  padding: 14px 44px;
+  background: transparent;
+  color: var(--dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(90,74,58,0.4);
+  transition: all 0.3s;
+}
+.tg-btn:hover { background: rgba(90,74,58,0.08); border-color: var(--dark); }
+
+/* RSVP */
+#block8 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4a5c3a;
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#block8 .block-video-bg { position:absolute; inset:0; z-index:0; }
+#block8 .block-video-bg video { width:100%; height:100%; object-fit:cover; opacity:0.4; }
+#block8::after { content:''; position:absolute; inset:0; background:rgba(35,45,25,0.6); z-index:1; pointer-events:none; }
+#block8 .rsvp-wrap { position:relative; z-index:2; }
+.rsvp-wrap { max-width:500px; width:100%; }
+.rsvp-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  color: white;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.rsvp-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.rsvp-deadline {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--light-text);
+  text-transform: uppercase;
+  margin: 16px 0 8px;
+}
+.contacts { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:20px 0 0; }
+.contact-card {
+  padding: 20px 32px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  min-width: 140px;
+  backdrop-filter: blur(8px);
+}
+.contact-who { font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic; color:white; margin-bottom:6px; }
+.contact-phone { font-family:'Jost',sans-serif; font-size:13px; font-weight:400; color:rgba(255,220,150,0.95); letter-spacing:1px; }
+.countdown-label { font-family:'Cormorant Garamond',serif; font-size:26px; font-style:italic; color:white; margin-top:56px; margin-bottom:28px; }
+.countdown { display:flex; gap:0; justify-content:center; flex-wrap:wrap; }
+.cd-unit { text-align:center; min-width:80px; padding: 0 12px; border-right: 1px solid rgba(90,74,58,0.15); }
+.cd-unit:last-child { border-right: none; }
+.cd-number { font-family:'Cormorant Garamond',serif; font-size:60px; font-weight:300; color:white; line-height:1; display:block; }
+.cd-label { font-family:'Jost',sans-serif; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--light-text); margin-top:6px; }
+.cd-sep { display: none; }
+.signature { font-family:'Cormorant Garamond',serif; font-size:36px; font-style:italic; color:white; margin-top:56px; opacity:0.8; }
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media (max-width:480px) {
+  .reveal-names h1 { font-size:54px; }
+  .countdown { gap:10px; }
+  .cd-number { font-size:40px; }
+  .cd-unit { min-width:55px; }
+}
+
+/* =====================================================
+   MOBILE ADAPTIVE (max-width: 600px)
+   ===================================================== */
+@media (max-width: 600px) {
+
+  /* BLOCK 1 — HERO */
+  .hero-names { font-size: 48px !important; }
+  .hero-invite { font-size: 10px; letter-spacing: 3px; }
+  .cal-grid { grid-template-columns: repeat(7, 30px); }
+  .cal-decoration { width: 240px; }
+
+  /* BLOCK 2 — LETTER */
+  .letter-block-inner { padding: 40px 24px; }
+  .letter-heading { font-size: 26px; }
+  .letter-body { font-size: 17px; }
+
+  /* BLOCK 3 — TIMING */
+  .timing-heading { font-size: 11px; letter-spacing: 4px; }
+  .timing-wrap { padding: 0 16px 60px; }
+  .tl-time { font-size: 26px; }
+  .tl-title { font-size: 17px; }
+  .tl-photo { width: 64px; height: 64px; }
+  .timeline-item { gap: 16px; margin-bottom: 44px; }
+  .tl-line-top { height: 60px; }
+  .tl-line-bottom { height: 60px; }
+
+  /* BLOCK 4 — LOCATION */
+  #block4 { min-height: 60vh; }
+  .location-wrap { padding: 32px 24px !important; }
+  .section-title { font-size: 28px; }
+  .location-text { font-size: 18px; }
+  .map-btn { padding: 12px 28px; font-size: 10px; }
+
+  /* BLOCK 5 — DRESSCODE */
+  #block5 { padding: 0 16px 40px; }
+  .dc-title { font-size: 32px; }
+  .dc-subtitle { font-size: 15px; }
+  .dc-invite-sub { font-size: 15px; }
+  .dc-row { gap: 12px; flex-wrap: nowrap; }
+  .dc-circles { flex-shrink: 0; }
+  .dc-circle { width: 48px; height: 48px; }
+  .dc-circle + .dc-circle { margin-left: -14px !important; }
+  .dc-label { font-size: 20px; }
+  .dc-note { font-size: 14px; }
+  .dresscode-wrap { max-width: 100%; }
+
+  /* BLOCK 5b — YES/NO */
+  #block5b { padding: 0 12px 60px; }
+  .yn-title { font-size: 16px; letter-spacing: 2px; }
+  .yn-oldmoney { width: 260px; margin-bottom: -80px; }
+  .yn-cols { gap: 10px; }
+  .yn-card { padding: 24px 12px 20px; }
+  .yn-badge { width: 52px; height: 52px; font-size: 13px; margin: -42px auto 14px; }
+  .yn-text { font-size: 13px; }
+
+  /* BLOCK 5c — OUTFITS */
+  #block5c { padding: 10px 0; }
+  .outfits-img { width: 100%; }
+
+  /* BLOCK 6 — FAQ */
+  #block6 { padding: 60px 16px; }
+  .faq-header-title { font-size: 32px; }
+  .faq-header-label { font-size: 13px; letter-spacing: 3px; }
+  .faq-intro { font-size: 17px; }
+  .faq-q { font-size: 22px; }
+  .faq-a { font-size: 14px; padding-left: 20px; }
+  .train-row { font-size: 17px; }
+  .organizer-card { padding: 12px 16px; gap: 12px; }
+  .organizer-name { font-size: 18px; }
+  .organizer-phone { font-size: 13px; }
+
+  /* BLOCK 7 — TELEGRAM */
+  #block7 { padding: 60px 20px; }
+  .tg-title { font-size: 32px; }
+  .tg-label { font-size: 14px; letter-spacing: 3px; }
+  .circle-note { font-size: 16px; padding: 16px 16px; }
+  .tg-btn { padding: 12px 32px; font-size: 10px; }
+
+  /* BLOCK 8 — RSVP */
+  #block8 { padding: 60px 16px; }
+  .rsvp-title { font-size: 36px; }
+  .rsvp-label { font-size: 12px; letter-spacing: 3px; }
+  .rsvp-deadline { font-size: 10px; }
+  .contacts { gap: 10px; }
+  .contact-card { padding: 16px 20px; min-width: 120px; }
+  .contact-who { font-size: 20px; }
+  .contact-phone { font-size: 12px; }
+  .countdown-label { font-size: 22px; margin-top: 40px; margin-bottom: 20px; }
+  .cd-number { font-size: 44px; }
+  .cd-unit { padding: 0 8px; min-width: 60px; }
+  .cd-label { font-size: 8px; letter-spacing: 2px; }
+  .signature { font-size: 28px; margin-top: 40px; }
+
+  /* ОБЩЕЕ */
+  .section-title { font-size: 28px; }
+  .section-label { font-size: 10px; letter-spacing: 3px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     BLOCK 1 — ENVELOPE (SVG, полный экран)
+     ====================================================== -->
+<section id="block1">
+  <div class="block-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="fabric.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="block-video-overlay"></div>
+
+  <div class="hero-wrap">
+    <p class="hero-subtitle">Вы приглашены на нашу свадьбу</p>
+
+    <div class="hero-names">
+      Юлия
+      <span class="amp">&amp;</span>
+      Владислав
+    </div>
+
+    <!-- Календарик -->
+    <div class="hero-calendar">
+      <div class="cal-grid cal-weekdays">
+        <span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span>
+      </div>
+      <div class="cal-grid cal-days">
+        <!-- Май 2026: 1-е — пятница -->
+        <span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span>
+        <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+        <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span class="cal-selected">16</span><span>17</span>
+      </div>
+
+      <!-- SVG: сердечко + линия + "май" как в референсе -->
+      <svg class="cal-decoration" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <defs>
+          <path id="textPath" d="M 200 218 C 220 228, 250 242, 275 255 C 295 266, 310 278, 318 290"/>
+        </defs>
+
+        <!-- Сердечко вокруг числа 16: центр x=232, y=134 -->
+        <path d="M 232 122 C 232 122, 222 112, 215 116 C 208 120, 208 130, 215 136 C 220 140, 232 150, 232 150 C 232 150, 244 140, 249 136 C 256 130, 256 120, 249 116 C 242 112, 232 122, 232 122 Z"
+              stroke="rgba(255,255,255,0.82)" stroke-width="1.2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Линия: от низа сердечка вниз, петля влево, хвост вправо-вниз -->
+        <path d="M 232 152
+                 C 230 172, 218 188, 200 200
+                 C 180 214, 154 220, 138 210
+                 C 122 200, 128 184, 144 182
+                 C 154 180, 166 186, 174 196
+                 C 186 210, 210 228, 248 248
+                 C 278 264, 308 278, 318 294"
+              stroke="rgba(255,255,255,0.55)" stroke-width="1.1" fill="none"
+              stroke-linecap="round"/>
+
+        <!-- "май" вдоль хвоста линии -->
+        <text font-family="Cormorant Garamond, serif" font-size="26" font-style="italic"
+              fill="rgba(255,255,255,0.88)">
+          <textPath href="#textPath" startOffset="5%">май</textPath>
+        </text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<div id="block2"></div>
+
+<!-- ====== BLOCK 2: LETTER ====== -->
+<section id="block2-letter">
+  <div class="letter-block-wrap">
+    <div class="letter-block-inner">
+      <h2 class="letter-heading">Дорогие гости!</h2>
+      <p class="letter-body">Если вы получили это приглашение, значит скоро вы увидите одного из нас в свадебном платье.</p>
+      <p class="letter-body">Наша пара скоро станет счастливой семьей — будем признательны, если вы будете с нами в столь значимый для нас день!</p>
+    </div>
+  </div>
+</section>
+
+<section id="block3">
+  <div class="block-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="fabric.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <p class="timing-heading">ТАЙМИНГ</p>
+
+  <div class="timing-wrap">
+    <div class="tl-line-top"></div>
+    <div class="tl-line-bottom"></div>
+    <div class="tl-cap"></div>
+
+    <!-- 14:30 -->
+    <div class="timeline-item">
+      <div class="tl-photo reveal-photo">
+        <img src="photo1.jpg" alt="Сбор гостей">
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">14:30</div>
+        <div class="tl-title">Сбор гостей / фуршет</div>
+      </div>
+    </div>
+
+    <!-- 15:00 -->
+    <div class="timeline-item">
+      <div class="tl-photo reveal-photo">
+        <img src="photo2.jpg" alt="Церемония">
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">15:00</div>
+        <div class="tl-title">Начало выездной церемонии</div>
+      </div>
+    </div>
+
+    <!-- 23:00 -->
+    <div class="timeline-item">
+      <div class="tl-photo reveal-photo">
+        <img src="photo3.jpg" alt="Танцы">
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">23:00</div>
+        <div class="tl-title">Танцы</div>
+      </div>
+    </div>
+
+    <!-- 00:00 -->
+    <div class="timeline-item">
+      <div class="tl-photo reveal-photo">
+        <img src="photo4.jpg" alt="Окончание вечера">
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">00:00</div>
+        <div class="tl-title">Окончание вечера</div>
+      </div>
+    </div>
+
+    <div class="tl-cap tl-cap-bottom"></div>
+  </div>
+</section>
+
+
+<section id="block4">
+  <div class="location-wrap reveal">
+    <h2 class="section-title">Локация</h2>
+    <p class="location-text">
+      Брестская область, Березовский р-н,<br>
+      д. Селец, кафе «Берасцянка»
+    </p>
+    <a href="https://maps.google.com/?q=Берасцянка+Селец+Березовский+район" target="_blank" class="map-btn">
+      Посмотреть на карте
+    </a>
+  </div>
+</section>
+
+<!-- ======================================================
+     BLOCK 5 — DRESS CODE
+     ====================================================== -->
+<section id="block5">
+  <div class="dresscode-wrap reveal">
+    <h2 class="dc-title">Дресс-код</h2>
+    <p class="dc-invite-sub">Нам будет приятно, если вы поддержите цветовую палитру нашего праздника!</p>
+    <p class="dc-subtitle">Изысканная палитра, в которой каждый оттенок<br>говорит о наследии и никогда не требует внимания.</p>
+
+    <!-- Весенний -->
+    <div class="dc-row">
+      <div class="dc-circles">
+        <div class="dc-circle reveal-circle" style="background:#193225;"></div>
+        <div class="dc-circle reveal-circle" style="background:#71A292; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#A89F1F; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#BDCDAD; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#E0DDC8; margin-left:-20px;"></div>
+      </div>
+      <span class="dc-label">весенний стиль</span>
+    </div>
+
+    <!-- Осенний -->
+    <div class="dc-row">
+      <div class="dc-circles">
+        <div class="dc-circle reveal-circle" style="background:#2B2211;"></div>
+        <div class="dc-circle reveal-circle" style="background:#4C170F; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#5D3720; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#965827; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#BF947A; margin-left:-20px;"></div>
+      </div>
+      <span class="dc-label">осенний стиль</span>
+    </div>
+
+    <!-- Зимний -->
+    <div class="dc-row">
+      <div class="dc-circles">
+        <div class="dc-circle reveal-circle" style="background:#212E40;"></div>
+        <div class="dc-circle reveal-circle" style="background:#54473E; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#DCB955; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#CCB484; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#E3E0DB; margin-left:-20px;"></div>
+      </div>
+      <span class="dc-label">зимний стиль</span>
+    </div>
+
+    <!-- Летний -->
+    <div class="dc-row">
+      <div class="dc-circles">
+        <div class="dc-circle reveal-circle" style="background:#3E243B;"></div>
+        <div class="dc-circle reveal-circle" style="background:#DB8E8F; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#FCDFE4; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#7F592D; margin-left:-20px;"></div>
+        <div class="dc-circle reveal-circle" style="background:#CEB9A5; margin-left:-20px;"></div>
+      </div>
+      <span class="dc-label">летний стиль</span>
+    </div>
+
+    <p class="dc-note">Потому что истинный стиль не кричит. Он выдержан в тонах спокойной уверенности.</p>
+  </div>
+</section>
+
+<!-- ======================================================
+     BLOCK 5b — YES/NO
+     ====================================================== -->
+<section id="block5b">
+  <div class="yn-wrap reveal">
+    <img src="oldmoney.png" alt="Old money style" class="yn-oldmoney">
+    <h2 class="yn-title">ТОП 3 "ДА" и "НЕТ"</h2>
+    <div class="yn-cols">
+
+      <!-- ДА -->
+      <div class="yn-card">
+        <div class="yn-badge yn-badge-yes">ДА</div>
+        <div class="yn-items">
+          <p class="yn-text">Отдайте предпочтение приглушённым неярким тонам. Выбирайте пастельные оттенки.</p>
+          <div class="yn-divider"></div>
+          <p class="yn-text">Выбирайте лёгкие, струящиеся ткани. Откажитесь от ненатуральных образов.</p>
+          <div class="yn-divider"></div>
+          <p class="yn-text">Выбирайте минималистичные элегантные украшения.</p>
+        </div>
+      </div>
+
+      <!-- НЕТ -->
+      <div class="yn-card">
+        <div class="yn-badge yn-badge-no">НЕТ</div>
+        <div class="yn-items">
+          <p class="yn-text">Откажитесь от кричащих неоновых оттенков, узоров, принтов.</p>
+          <div class="yn-divider"></div>
+          <p class="yn-text">Отойдите от базового чёрного цвета. А белый цвет оставьте для невесты.</p>
+          <div class="yn-divider"></div>
+          <p class="yn-text">Замените бренды и современные образы на нестареющую классику.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     BLOCK 5c — OUTFITS
+     ====================================================== -->
+<section id="block5c">
+  <img src="outfits.png" alt="Образы гостей" class="outfits-img reveal">
+</section>
+
+<!-- ======================================================
+     BLOCK 6 — FAQ
+     ====================================================== -->
+<section id="block6">
+  <div class="faq-wrap">
+    <div class="faq-header reveal">
+      <p class="faq-header-label">Всё, что нужно знать</p>
+      <h2 class="faq-header-title">Подсказки</h2>
+    </div>
+    <p class="faq-intro reveal">Мы догадываемся, что после получения приглашения у вас может появиться ряд вопросов, поэтому мы постарались ответить на некоторые.</p>
+
+    <div class="faq-item faq-accordion reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">Цветы<span class="faq-arrow">+</span></div>
+      <div class="faq-a faq-collapsed">Если хотите сделать нам приятный подарок, просим вместо цветов принести бутылочку хорошего алкоголя — это будет отличным дополнением к нашим уютным вечерам.</div>
+    </div>
+
+    <div class="faq-item faq-accordion reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">Как добираться?<span class="faq-arrow">+</span></div>
+      <div class="faq-a faq-collapsed">
+        <p>Поезда из г. Минска на 16.05.2026:<br>
+        <strong style="font-weight:400;color:var(--dark)">ст. Минск-Пассажирский → ст. Оранчицы</strong></p>
+        <div class="train-schedule">
+          <div class="train-row"><span class="train-time">8:25</span><span>→</span><span>11:38</span></div>
+          <div class="train-row"><span class="train-time">9:12</span><span>→</span><span>12:38</span></div>
+          <div class="train-row"><span class="train-time">10:24</span><span>→</span><span>13:06</span></div>
+        </div>
+        <p>Просим оперативно заказать билеты — мест с каждым днём всё меньше.</p><br>
+        <p>Общий транспорт: <strong style="font-weight:400;color:var(--dark)">г. Пружаны, ул. Заречная, 14</strong>. Отправление — в <strong style="font-weight:400;color:var(--gold)">13:40</strong>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item faq-accordion reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">Поздравления<span class="faq-arrow">+</span></div>
+      <div class="faq-a faq-collapsed">Не переживайте — у нас современная свадьба, и мы не будем никого заставлять говорить тосты. У нас будет действовать открытый микрофон. Но если у вас есть желание сказать нам несколько тёплых слов, сообщите об этом нашему организатору.</div>
+    </div>
+
+    <div class="faq-item faq-accordion reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">Традиции<span class="faq-arrow">+</span></div>
+      <div class="faq-a faq-collapsed">Мы очень уважительно относимся к традициям, однако не все мы решили перенять для нашего праздника. Очень просим не красть невесту и не просить выкупа. Благодарим за понимание!</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-q">Наш организатор</div>
+      <div class="faq-a">
+        Если вы заблудились или у вас возникли вопросы — не стесняйтесь обращаться!
+        <div class="organizer-card">
+          <div class="organizer-initial">О</div>
+          <div>
+            <div class="organizer-name">Ольга</div>
+            <div class="organizer-phone">+375 33 674-47-14</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     BLOCK 7 — TELEGRAM
+     ====================================================== -->
+<section id="block7">
+  <div class="telegram-wrap reveal">
+    <div class="tg-icon">
+      <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+    </div>
+    <p class="tg-label">Присоединяйтесь</p>
+    <h2 class="tg-title">Наш чат</h2>
+    <div class="circle-note">
+      Наша невеста помешана на трендах 🎬 Будем очень признательны, если вы ещё до дня торжества запишете свой первый кружочек в общий чат со словом «Горько!». Поверьте, Юле будет очень приятно!
+    </div>
+    <a href="https://t.me/+Ucsioai5CSM1ODBi" target="_blank" class="tg-btn">Перейти в чат</a>
+  </div>
+</section>
+
+<!-- ======================================================
+     BLOCK 8 — RSVP + COUNTDOWN
+     ====================================================== -->
+<section id="block8">
+  <div class="block-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="fabric.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="rsvp-wrap">
+    <div class="reveal">
+      <p class="rsvp-label">Подтверждение</p>
+      <h2 class="rsvp-title">Вы придёте?</h2>
+      <p class="rsvp-deadline">Ждём ответа до 16.04.2026</p>
+      <p style="font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--light-text);margin-bottom:20px;">Просим подтвердить своё присутствие:</p>
+      <div class="contacts">
+        <div class="contact-card">
+          <div class="contact-who">Юля</div>
+          <div class="contact-phone">+375 33 603-15-63</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-who">Влад</div>
+          <div class="contact-phone">+375 33 327-48-00</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay:0.3s">
+      <p class="countdown-label">Мы станем семьёй через…</p>
+      <div class="countdown">
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-days">--</span>
+          <div class="cd-label">дней</div>
+        </div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-hours">--</span>
+          <div class="cd-label">часов</div>
+        </div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-mins">--</span>
+          <div class="cd-label">минут</div>
+        </div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit">
+          <span class="cd-number" id="cd-secs">--</span>
+          <div class="cd-label">секунд</div>
+        </div>
+      </div>
+      <p class="signature">Ваши Юля и Влад 🤍</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// OPEN ENVELOPE
+function openInvite() {
+  const env = document.getElementById('theEnvelope');
+  env.classList.add('open');
+  setTimeout(() => {
+    document.getElementById('block2').scrollIntoView({ behavior: 'smooth' });
+  }, 900);
+}
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+reveals.forEach(r => io.observe(r));
+
+// COUNTDOWN
+function tick() {
+  const diff = new Date('2026-05-16T15:00:00') - new Date();
+  if (diff <= 0) return;
+  document.getElementById('cd-days').textContent  = Math.floor(diff / 86400000);
+  document.getElementById('cd-hours').textContent = String(Math.floor(diff % 86400000 / 3600000)).padStart(2,'0');
+  document.getElementById('cd-mins').textContent  = String(Math.floor(diff % 3600000 / 60000)).padStart(2,'0');
+  document.getElementById('cd-secs').textContent  = String(Math.floor(diff % 60000 / 1000)).padStart(2,'0');
+}
+tick();
+setInterval(tick, 1000);
+
+  // ===== PHOTO REVEAL ON SCROLL =====
+  function updatePhotos() {
+    const photos = document.querySelectorAll('.reveal-photo');
+    const vh = window.innerHeight;
+    photos.forEach(function(photo) {
+      const rect = photo.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (vh * 0.85 - rect.top) / (vh * 0.4)));
+      photo.style.opacity = 0.08 + progress * 0.92;
+      photo.style.filter = 'grayscale(' + Math.round((1 - progress) * 100) + '%) blur(' + ((1 - progress)).toFixed(2) + 'px)';
+      photo.style.transform = 'scale(' + (0.9 + progress * 0.1).toFixed(3) + ')';
+    });
+  }
+
+  // ===== CIRCLES REVEAL ON SCROLL =====
+  function updateCircles() {
+    const circles = document.querySelectorAll('.reveal-circle');
+    const vh = window.innerHeight;
+    circles.forEach(function(circle) {
+      const rect = circle.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (vh * 0.95 - rect.top) / (vh * 0.25)));
+      circle.style.opacity = 0.08 + progress * 0.92;
+      circle.style.filter = 'grayscale(' + Math.round((1 - progress) * 100) + '%) blur(' + ((1 - progress)).toFixed(2) + 'px)';
+      circle.style.transform = 'scale(' + (0.9 + progress * 0.1).toFixed(3) + ')';
+    });
+  }
+
+  window.addEventListener('scroll', function() { updatePhotos(); updateCircles(); }, { passive: true });
+  updatePhotos();
+  updateCircles();
+
+  // ===== FAQ ACCORDION =====
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const arrow = el.querySelector('.faq-arrow');
+    const isOpen = answer.classList.contains('open');
+    // Закрываем все
+    document.querySelectorAll('.faq-collapsed').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-arrow').forEach(a => a.classList.remove('open'));
+    // Открываем если было закрыто
+    if (!isOpen) {
+      answer.classList.add('open');
+      arrow.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>
