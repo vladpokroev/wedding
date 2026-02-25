@@ -1449,19 +1449,14 @@ setInterval(tick, 1000);
     ctx.fill();
   }
 
-  // Ждём полной загрузки всех изображений
-  const tlImgs = document.querySelectorAll('.tl-photo img');
-  let loaded = 0;
-  function tryDraw() {
-    loaded++;
-    if (loaded >= tlImgs.length) drawTimelineLine();
-  }
-  tlImgs.forEach(img => {
-    if (img.complete) tryDraw();
-    else img.addEventListener('load', tryDraw);
-  });
+  // Рисуем несколько раз — после загрузки каждой картинки и через задержки
   window.addEventListener('resize', drawTimelineLine);
-  window.addEventListener('load', drawTimelineLine);
+  window.addEventListener('load', () => {
+    drawTimelineLine();
+    setTimeout(drawTimelineLine, 500);
+  });
+  // Принудительно несколько раз пока страница рендерится
+  [100, 300, 600, 1200, 2000].forEach(t => setTimeout(drawTimelineLine, t));
 
   // ===== LAZY VIDEO LOAD =====
   const lazyVideos = document.querySelectorAll('video');
