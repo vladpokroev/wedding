@@ -1388,7 +1388,7 @@ setInterval(tick, 1000);
   function drawTimelineLine() {
     const wrap = document.getElementById('timingWrap');
     const canvas = document.getElementById('timeline-canvas');
-    const photos = wrap.querySelectorAll('.tl-photo');
+    const photos = Array.from(wrap.querySelectorAll('.tl-photo'));
     if (!wrap || !canvas || photos.length === 0) return;
 
     const wrapRect = wrap.getBoundingClientRect();
@@ -1398,8 +1398,7 @@ setInterval(tick, 1000);
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Получаем центр X первого кружка и центры Y всех кружков
-    const centers = Array.from(photos).map(p => {
+    const centers = photos.map(p => {
       const r = p.getBoundingClientRect();
       return {
         x: r.left - wrapRect.left + r.width / 2,
@@ -1412,33 +1411,57 @@ setInterval(tick, 1000);
     const firstY = centers[0].y;
     const lastY = centers[centers.length - 1].y;
     const dotR = 6;
-    const lineExtend = 40; // удлинение линии за пределы кружков
+    const extend = 40;
+    const gap = 6; // зазор вокруг кружка
 
-    // Рисуем линию
-    ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+    ctx.strokeStyle = 'rgba(255,255,255,0.45)';
     ctx.lineWidth = 1;
+
+    // Верхний отрезок: от верхней точки до первого кружка
     ctx.beginPath();
-    ctx.moveTo(x, firstY - lineExtend);
-    ctx.lineTo(x, lastY + lineExtend);
+    ctx.moveTo(x, firstY - extend);
+    ctx.lineTo(x, firstY - centers[0].r - gap);
+    ctx.stroke();
+
+    // Отрезки между кружками
+    for (let i = 0; i < centers.length - 1; i++) {
+      ctx.beginPath();
+      ctx.moveTo(x, centers[i].y + centers[i].r + gap);
+      ctx.lineTo(x, centers[i+1].y - centers[i+1].r - gap);
+      ctx.stroke();
+    }
+
+    // Нижний отрезок: от последнего кружка до нижней точки
+    ctx.beginPath();
+    ctx.moveTo(x, lastY + centers[centers.length-1].r + gap);
+    ctx.lineTo(x, lastY + extend);
     ctx.stroke();
 
     // Верхняя точка
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath();
-    ctx.arc(x, firstY - lineExtend, dotR, 0, Math.PI * 2);
+    ctx.arc(x, firstY - extend, dotR, 0, Math.PI * 2);
     ctx.fill();
 
     // Нижняя точка
     ctx.beginPath();
-    ctx.arc(x, lastY + lineExtend, dotR, 0, Math.PI * 2);
+    ctx.arc(x, lastY + extend, dotR, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Рисуем после загрузки картинок
-  window.addEventListener('load', drawTimelineLine);
+  // Ждём полной загрузки всех изображений
+  const tlImgs = document.querySelectorAll('.tl-photo img');
+  let loaded = 0;
+  function tryDraw() {
+    loaded++;
+    if (loaded >= tlImgs.length) drawTimelineLine();
+  }
+  tlImgs.forEach(img => {
+    if (img.complete) tryDraw();
+    else img.addEventListener('load', tryDraw);
+  });
   window.addEventListener('resize', drawTimelineLine);
-  setTimeout(drawTimelineLine, 300);
-  setTimeout(drawTimelineLine, 1000);
+  window.addEventListener('load', drawTimelineLine);
 
   // ===== LAZY VIDEO LOAD =====
   const lazyVideos = document.querySelectorAll('video');
