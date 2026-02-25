@@ -143,13 +143,15 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 /* SVG линия + "май" рисуется через абсолютный элемент */
 .cal-decoration {
   position: absolute;
-  top: -10px; /* сердечко чуть выше первой строки цифр */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 320px;
-  height: 320px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   overflow: visible;
+}
+.cal-wrap {
+  position: relative;
 }
 
 
@@ -377,7 +379,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 
 
 /* LOCATION */
-#block4 { min-height:80vh; display:flex; align-items:center; justify-content:center; background: url(venue.jpg) center 20%/cover no-repeat; padding:80px 20px 0px; position:relative; }
+#block4 { min-height:80vh; display:flex; align-items:center; justify-content:center; background: url(venue.jpg) 20% 20%/cover no-repeat; padding:80px 20px 0px; position:relative; }
 #block4::before { content:""; position:absolute; inset:0; background:rgba(30,25,20,0.52); z-index:0; }
 #block4 .section-label { color:rgba(255,255,255,0.65); }
 #block4 .section-title { color:white; }
@@ -453,7 +455,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   color: var(--light-text);
   line-height: 1.7;
   margin-top: 16px;
-  margin-bottom: -400px;
+  margin-bottom: 0;
 }
 .dc-invite-sub {
   font-family: 'Cormorant Garamond', serif;
@@ -489,7 +491,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 .yn-oldmoney {
   width: 400px;
   display: block;
-  margin: -20px auto -130px;
+  margin: 20px auto 0;
 }
 .yn-title {
   font-family: 'Jost', sans-serif;
@@ -835,9 +837,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 
   /* BLOCK 3 — TIMING */
   .timing-heading { font-size: 28px; letter-spacing: 4px; }
-  .cal-decoration { display: none; }
-  .timing-wrap { padding: 0 16px 60px; }
-  .tl-line-top, .tl-line-bottom { left: 55px; }
+  .timing-wrap { padding: 0 20px 60px; }
   .tl-time { font-size: 26px; }
   .tl-title { font-size: 17px; }
   .tl-photo { width: 64px; height: 64px; }
@@ -1395,6 +1395,52 @@ setInterval(tick, 1000);
     lazyVideos.forEach(function(v) { v.play().catch(function(){}); });
   }
 
+
+  // ===== HEART POSITION =====
+  function positionHeart() {
+    const cell16 = document.querySelector('.cal-day.highlighted');
+    const svgEl = document.querySelector('.cal-decoration');
+    const calWrap = document.querySelector('.cal-wrap');
+    if (!cell16 || !svgEl || !calWrap) return;
+
+    const wrapRect = calWrap.getBoundingClientRect();
+    const cellRect = cell16.getBoundingClientRect();
+    
+    // Центр ячейки относительно обёртки
+    const cx = cellRect.left - wrapRect.left + cellRect.width / 2;
+    const cy = cellRect.top - wrapRect.top + cellRect.height / 2;
+    
+    // Масштаб SVG — оригинальный viewBox 320x320
+    const scale = wrapRect.width / 320;
+    
+    // Пересчитываем координаты обратно в SVG единицы
+    const svgCx = cx / scale;
+    const svgCy = cy / scale;
+    
+    // Обновляем сердечко
+    const heart = svgEl.querySelector('path[stroke]');
+    if (heart) {
+      const dx = svgCx - 232;
+      const dy = svgCy - 134;
+      const newD = heart.getAttribute('d').replace(
+        /M (\d+) (\d+)/g, (m, x, y) => `M ${+x + dx} ${+y + dy}`
+      );
+      // Проще — просто двигаем всю группу через transform
+    }
+    
+    // Используем transform на всём SVG
+    const offsetX = cx - (232 * scale);
+    const offsetY = cy - (134 * scale);
+    svgEl.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale}) translate(-232px, -134px)`;
+    svgEl.style.transformOrigin = '0 0';
+    svgEl.style.width = '320px';
+    svgEl.style.height = '320px';
+    svgEl.style.top = '0';
+    svgEl.style.left = '0';
+  }
+  
+  positionHeart();
+  window.addEventListener('resize', positionHeart);
 
   // ===== FAQ ACCORDION =====
   function toggleFaq(el) {
