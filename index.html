@@ -392,7 +392,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 .map-btn:hover { background:var(--sage); color:white; }
 
 /* DRESS CODE */
-#block5 { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#E0DDC8; padding:0px 20px 10px; margin-top:-250px; }
+#block5 { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#E0DDC8; padding:40px 20px 10px; margin-top:0; }
 .dresscode-wrap { text-align:center; max-width:560px; }
 
 .dc-title {
@@ -834,8 +834,10 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   .letter-body { font-size: 17px; }
 
   /* BLOCK 3 — TIMING */
-  .timing-heading { font-size: 11px; letter-spacing: 4px; }
+  .timing-heading { font-size: 28px; letter-spacing: 4px; }
+  .cal-decoration { display: none; }
   .timing-wrap { padding: 0 16px 60px; }
+  .tl-line-top, .tl-line-bottom { left: 55px; }
   .tl-time { font-size: 26px; }
   .tl-title { font-size: 17px; }
   .tl-photo { width: 64px; height: 64px; }
@@ -918,6 +920,12 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   .block-video-bg { display: none; }
   #block3-timing { background: #4a5c3a; }
   #block8 { background: #3a4d2a; }
+  /* Отключаем filter эффект на мобильных — тормозит */
+  .reveal-photo, .reveal-circle {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1) !important;
+  }
 
 }
 </style>
