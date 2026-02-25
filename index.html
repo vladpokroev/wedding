@@ -455,7 +455,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   color: var(--light-text);
   line-height: 1.7;
   margin-top: 16px;
-  margin-bottom: 0;
+  margin-bottom: -30px;
 }
 .dc-invite-sub {
   font-family: 'Cormorant Garamond', serif;
@@ -491,7 +491,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 .yn-oldmoney {
   width: 400px;
   display: block;
-  margin: 20px auto 0;
+  margin: -10px auto 0;
 }
 .yn-title {
   font-family: 'Jost', sans-serif;
@@ -862,13 +862,13 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   .dc-circle { width: 48px; height: 48px; }
   .dc-circle + .dc-circle { margin-left: -14px !important; }
   .dc-label { font-size: 20px; }
-  .dc-note { font-size: 14px; }
+  .dc-note { font-size: 14px; margin-bottom: -150px; }
   .dresscode-wrap { max-width: 100%; }
 
   /* BLOCK 5b — YES/NO */
   #block5b { padding: 0 12px 60px; }
   .yn-title { font-size: 16px; letter-spacing: 2px; }
-  .yn-oldmoney { width: 260px; margin-bottom: -80px; }
+  .yn-oldmoney { width: 260px; margin-top: -50px; margin-bottom: -80px; }
   .yn-cols { gap: 10px; }
   .yn-card { padding: 24px 12px 20px; }
   .yn-badge { width: 52px; height: 52px; font-size: 13px; margin: -42px auto 14px; }
@@ -920,9 +920,8 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   .block-video-bg { display: none; }
   #block3-timing { background: #4a5c3a; }
   #block8 { background: #3a4d2a; }
-  /* Отключаем filter эффект на мобильных — тормозит */
-  .reveal-photo, .reveal-circle {
-    opacity: 1 !important;
+  /* На мобильных — только opacity анимация, без filter */
+  .reveal-circle {
     filter: none !important;
     transform: scale(1) !important;
   }
