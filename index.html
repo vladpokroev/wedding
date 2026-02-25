@@ -259,46 +259,31 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   padding: 60px 24px 60px; /* одинаковый отступ сверху и снизу */
 }
 
-/* Убираем сплошную линию */
+/* Линии тайминга — через JS */
 .timeline-line { display: none; }
+.tl-line-top { display: none; }
+.tl-line-bottom { display: none; }
 
-/* Линия сверху — от верха до первого кружка */
-.tl-line-top {
+/* Канвас для линии поверх всего */
+#timeline-canvas {
   position: absolute;
-  left: 64px;
   top: 0;
-  height: 60px; /* padding-top timing-wrap */
-  width: 1px;
-  background: rgba(255,255,255,0.4);
-  z-index: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Линия снизу — от последнего кружка до низа */
-.tl-line-bottom {
-  position: absolute;
-  left: 64px;
-  bottom: 0;
-  height: 60px; /* padding-bottom timing-wrap */
-  width: 1px;
-  background: rgba(255,255,255,0.4);
-  z-index: 0;
-}
-
-/* Линия между пунктами — от низа одного кружка до верха следующего */
-.timeline-item {
+.timing-wrap {
   position: relative;
 }
-.timeline-item::after {
-  content: '';
-  position: absolute;
-  left: 39px; /* 40px (центр кружка) - 1px */
-  top: 80px;  /* ниже кружка */
-  bottom: -56px; /* до следующего item (margin-bottom: 56px) */
-  width: 1px;
-  background: rgba(255,255,255,0.4);
-  z-index: 0;
+
+.timeline-item {
+  position: relative;
+  z-index: 2;
 }
-.timeline-item:last-child::after { display: none; }
+.timeline-item::after { display: none; }
 
 .timeline-item {
   display: flex;
@@ -846,12 +831,12 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   /* BLOCK 3 — TIMING */
   .timing-heading { font-size: 28px; letter-spacing: 4px; }
   .timing-wrap { padding: 0 20px 60px; }
+  /* На мобильных padding 20px + радиус 32px (64px кружок / 2) = 52px */
   .tl-time { font-size: 26px; }
   .tl-title { font-size: 17px; }
   .tl-photo { width: 64px; height: 64px; }
+  /* Кружок 64px, радиус 32px, padding 20px → центр на 52px — совпадает с линией */
   .timeline-item { gap: 16px; margin-bottom: 44px; }
-  .tl-line-top { height: 60px; }
-  .tl-line-bottom { height: 60px; }
 
   /* BLOCK 4 — LOCATION */
   #block4 { min-height: 60vh; }
@@ -1042,10 +1027,8 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 
   <p class="timing-heading">ТАЙМИНГ</p>
 
-  <div class="timing-wrap">
-    <div class="tl-line-top"></div>
-    <div class="tl-line-bottom"></div>
-    <div class="tl-cap"></div>
+  <div class="timing-wrap" id="timingWrap">
+    <canvas id="timeline-canvas"></canvas>
 
     <!-- 14:30 -->
     <div class="timeline-item">
@@ -1400,6 +1383,62 @@ setInterval(tick, 1000);
   window.addEventListener('scroll', function() { updatePhotos(); updateCircles(); }, { passive: true });
   updatePhotos();
   updateCircles();
+
+  // ===== TIMELINE LINE via CANVAS =====
+  function drawTimelineLine() {
+    const wrap = document.getElementById('timingWrap');
+    const canvas = document.getElementById('timeline-canvas');
+    const photos = wrap.querySelectorAll('.tl-photo');
+    if (!wrap || !canvas || photos.length === 0) return;
+
+    const wrapRect = wrap.getBoundingClientRect();
+    canvas.width = wrapRect.width;
+    canvas.height = wrapRect.height;
+
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Получаем центр X первого кружка и центры Y всех кружков
+    const centers = Array.from(photos).map(p => {
+      const r = p.getBoundingClientRect();
+      return {
+        x: r.left - wrapRect.left + r.width / 2,
+        y: r.top - wrapRect.top + r.height / 2,
+        r: r.height / 2
+      };
+    });
+
+    const x = centers[0].x;
+    const firstY = centers[0].y;
+    const lastY = centers[centers.length - 1].y;
+    const dotR = 6;
+    const lineExtend = 40; // удлинение линии за пределы кружков
+
+    // Рисуем линию
+    ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, firstY - lineExtend);
+    ctx.lineTo(x, lastY + lineExtend);
+    ctx.stroke();
+
+    // Верхняя точка
+    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.arc(x, firstY - lineExtend, dotR, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Нижняя точка
+    ctx.beginPath();
+    ctx.arc(x, lastY + lineExtend, dotR, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Рисуем после загрузки картинок
+  window.addEventListener('load', drawTimelineLine);
+  window.addEventListener('resize', drawTimelineLine);
+  setTimeout(drawTimelineLine, 300);
+  setTimeout(drawTimelineLine, 1000);
 
   // ===== LAZY VIDEO LOAD =====
   const lazyVideos = document.querySelectorAll('video');
