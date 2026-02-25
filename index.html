@@ -913,6 +913,12 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
   /* ОБЩЕЕ */
   .section-title { font-size: 28px; }
   .section-label { font-size: 10px; letter-spacing: 3px; }
+
+  /* Видео на мобильных — скрываем, показываем только цвет */
+  .block-video-bg { display: none; }
+  #block3-timing { background: #4a5c3a; }
+  #block8 { background: #3a4d2a; }
+
 }
 </style>
 </head>
@@ -923,7 +929,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
      ====================================================== -->
 <section id="block1">
   <div class="block-video-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto" webkit-playsinline>
       <source src="fabric.mp4" type="video/mp4">
     </video>
   </div>
@@ -998,7 +1004,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 
 <section id="block3">
   <div class="block-video-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto" webkit-playsinline>
       <source src="fabric.mp4" type="video/mp4">
     </video>
   </div>
@@ -1256,7 +1262,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
      ====================================================== -->
 <section id="block8">
   <div class="block-video-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto" webkit-playsinline>
       <source src="fabric.mp4" type="video/mp4">
     </video>
   </div>
@@ -1363,6 +1369,24 @@ setInterval(tick, 1000);
   window.addEventListener('scroll', function() { updatePhotos(); updateCircles(); }, { passive: true });
   updatePhotos();
   updateCircles();
+
+  // ===== LAZY VIDEO LOAD =====
+  const lazyVideos = document.querySelectorAll('video');
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          video.play().catch(function(){});
+          videoObserver.unobserve(video);
+        }
+      });
+    }, { rootMargin: '200px' });
+    lazyVideos.forEach(function(v) { videoObserver.observe(v); });
+  } else {
+    lazyVideos.forEach(function(v) { v.play().catch(function(){}); });
+  }
+
 
   // ===== FAQ ACCORDION =====
   function toggleFaq(el) {
