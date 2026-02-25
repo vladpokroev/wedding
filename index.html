@@ -1391,19 +1391,30 @@ setInterval(tick, 1000);
     const photos = Array.from(wrap.querySelectorAll('.tl-photo'));
     if (!wrap || !canvas || photos.length === 0) return;
 
-    const wrapRect = wrap.getBoundingClientRect();
-    canvas.width = wrapRect.width;
-    canvas.height = wrapRect.height;
+    // Используем offsetTop/offsetLeft — не зависят от скролла
+    canvas.width = wrap.offsetWidth;
+    canvas.height = wrap.offsetHeight;
 
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Считаем позицию через offsetTop цепочку относительно timingWrap
+    function getOffset(el, ancestor) {
+      let top = 0, left = 0;
+      while (el && el !== ancestor) {
+        top += el.offsetTop;
+        left += el.offsetLeft;
+        el = el.offsetParent;
+      }
+      return { top, left };
+    }
+
     const centers = photos.map(p => {
-      const r = p.getBoundingClientRect();
+      const off = getOffset(p, wrap);
       return {
-        x: r.left - wrapRect.left + r.width / 2,
-        y: r.top - wrapRect.top + r.height / 2,
-        r: r.height / 2
+        x: off.left + p.offsetWidth / 2,
+        y: off.top + p.offsetHeight / 2,
+        r: p.offsetHeight / 2
       };
     });
 
@@ -1412,12 +1423,12 @@ setInterval(tick, 1000);
     const lastY = centers[centers.length - 1].y;
     const dotR = 6;
     const extend = 40;
-    const gap = 6; // зазор вокруг кружка
+    const gap = 6;
 
     ctx.strokeStyle = 'rgba(255,255,255,0.45)';
     ctx.lineWidth = 1;
 
-    // Верхний отрезок: от верхней точки до первого кружка
+    // Верхний отрезок
     ctx.beginPath();
     ctx.moveTo(x, firstY - extend);
     ctx.lineTo(x, firstY - centers[0].r - gap);
@@ -1431,7 +1442,7 @@ setInterval(tick, 1000);
       ctx.stroke();
     }
 
-    // Нижний отрезок: от последнего кружка до нижней точки
+    // Нижний отрезок
     ctx.beginPath();
     ctx.moveTo(x, lastY + centers[centers.length-1].r + gap);
     ctx.lineTo(x, lastY + extend);
