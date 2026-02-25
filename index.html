@@ -141,17 +141,25 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
 }
 
 /* SVG линия + "май" рисуется через абсолютный элемент */
-.cal-decoration {
+.cal-selected {
+  position: relative;
+}
+.cal-selected .heart-svg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
   pointer-events: none;
   overflow: visible;
+  z-index: 10;
 }
 .cal-wrap {
   position: relative;
+}
+.cal-decoration {
+  display: none;
 }
 
 
@@ -960,7 +968,23 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--t
         <!-- Май 2026: 1-е — пятница -->
         <span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span>
         <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-        <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span class="cal-selected">16</span><span>17</span>
+        <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span class="cal-selected">16<svg class="heart-svg" viewBox="-150 -150 300 300" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <defs>
+    <path id="textPath2" d="M -30 90 C 10 110, 60 130, 100 155 C 130 174, 155 192, 162 208"/>
+  </defs>
+  <!-- Сердечко центровано на 0,0 -->
+  <path d="M 0 -12 C 0 -12, -10 -22, -17 -18 C -24 -14, -24 -4, -17 2 C -12 6, 0 16, 0 16 C 0 16, 12 6, 17 2 C 24 -4, 24 -14, 17 -18 C 10 -22, 0 -12, 0 -12 Z"
+        stroke="rgba(255,255,255,0.85)" stroke-width="1.2" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Линия с петлей -->
+  <path d="M 0 18 C -2 38, -14 54, -32 66 C -52 80, -78 86, -94 76 C -110 66, -104 50, -88 48 C -78 46, -66 52, -58 62 C -46 76, -22 94, 16 114 C 46 130, 82 146, 90 160"
+        stroke="rgba(255,255,255,0.55)" stroke-width="1.1" fill="none"
+        stroke-linecap="round"/>
+  <!-- май -->
+  <text font-family="Cormorant Garamond, serif" font-size="26" font-style="italic" fill="rgba(255,255,255,0.88)">
+    <textPath href="#textPath2" startOffset="5%">май</textPath>
+  </text>
+</svg></span><span>17</span>
       </div>
 
       <!-- SVG: сердечко + линия + "май" как в референсе -->
@@ -1394,52 +1418,6 @@ setInterval(tick, 1000);
     lazyVideos.forEach(function(v) { v.play().catch(function(){}); });
   }
 
-
-  // ===== HEART POSITION =====
-  function positionHeart() {
-    const cell16 = document.querySelector('.cal-day.highlighted');
-    const svgEl = document.querySelector('.cal-decoration');
-    const calWrap = document.querySelector('.cal-wrap');
-    if (!cell16 || !svgEl || !calWrap) return;
-
-    const wrapRect = calWrap.getBoundingClientRect();
-    const cellRect = cell16.getBoundingClientRect();
-    
-    // Центр ячейки относительно обёртки
-    const cx = cellRect.left - wrapRect.left + cellRect.width / 2;
-    const cy = cellRect.top - wrapRect.top + cellRect.height / 2;
-    
-    // Масштаб SVG — оригинальный viewBox 320x320
-    const scale = wrapRect.width / 320;
-    
-    // Пересчитываем координаты обратно в SVG единицы
-    const svgCx = cx / scale;
-    const svgCy = cy / scale;
-    
-    // Обновляем сердечко
-    const heart = svgEl.querySelector('path[stroke]');
-    if (heart) {
-      const dx = svgCx - 232;
-      const dy = svgCy - 134;
-      const newD = heart.getAttribute('d').replace(
-        /M (\d+) (\d+)/g, (m, x, y) => `M ${+x + dx} ${+y + dy}`
-      );
-      // Проще — просто двигаем всю группу через transform
-    }
-    
-    // Используем transform на всём SVG
-    const offsetX = cx - (232 * scale);
-    const offsetY = cy - (134 * scale);
-    svgEl.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale}) translate(-232px, -134px)`;
-    svgEl.style.transformOrigin = '0 0';
-    svgEl.style.width = '320px';
-    svgEl.style.height = '320px';
-    svgEl.style.top = '0';
-    svgEl.style.left = '0';
-  }
-  
-  positionHeart();
-  window.addEventListener('resize', positionHeart);
 
   // ===== FAQ ACCORDION =====
   function toggleFaq(el) {
