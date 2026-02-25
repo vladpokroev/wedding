@@ -1391,50 +1391,46 @@ setInterval(tick, 1000);
     const photos = Array.from(wrap.querySelectorAll('.tl-photo'));
     if (!wrap || !canvas || photos.length === 0) return;
 
-    // Используем offsetTop/offsetLeft — не зависят от скролла
     canvas.width = wrap.offsetWidth;
     canvas.height = wrap.offsetHeight;
 
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Считаем позицию через offsetTop цепочку относительно timingWrap
-    function getOffset(el, ancestor) {
-      let top = 0, left = 0;
-      while (el && el !== ancestor) {
+    // Позиции кружков через offsetTop от timingWrap
+    const centers = photos.map(p => {
+      let top = 0, left = 0, el = p;
+      while (el && el !== wrap) {
         top += el.offsetTop;
         left += el.offsetLeft;
         el = el.offsetParent;
       }
-      return { top, left };
-    }
-
-    const centers = photos.map(p => {
-      const off = getOffset(p, wrap);
       return {
-        x: off.left + p.offsetWidth / 2,
-        y: off.top + p.offsetHeight / 2,
+        x: left + p.offsetWidth / 2,
+        y: top + p.offsetHeight / 2,
         r: p.offsetHeight / 2
       };
     });
 
+    // Сортируем по Y на всякий случай
+    centers.sort((a, b) => a.y - b.y);
+
     const x = centers[0].x;
-    const firstY = centers[0].y;
-    const lastY = centers[centers.length - 1].y;
+    const topDotY = 20;                          // верхняя точка — 20px от верха wrap
+    const botDotY = wrap.offsetHeight - 20;      // нижняя точка — 20px от низа wrap
+    const gap = 8;
     const dotR = 6;
-    const extend = 40;
-    const gap = 6;
 
     ctx.strokeStyle = 'rgba(255,255,255,0.45)';
     ctx.lineWidth = 1;
 
-    // Верхний отрезок
+    // Линия сверху до первого кружка
     ctx.beginPath();
-    ctx.moveTo(x, firstY - extend);
-    ctx.lineTo(x, firstY - centers[0].r - gap);
+    ctx.moveTo(x, topDotY);
+    ctx.lineTo(x, centers[0].y - centers[0].r - gap);
     ctx.stroke();
 
-    // Отрезки между кружками
+    // Линии между кружками
     for (let i = 0; i < centers.length - 1; i++) {
       ctx.beginPath();
       ctx.moveTo(x, centers[i].y + centers[i].r + gap);
@@ -1442,21 +1438,21 @@ setInterval(tick, 1000);
       ctx.stroke();
     }
 
-    // Нижний отрезок
+    // Линия от последнего кружка вниз
     ctx.beginPath();
-    ctx.moveTo(x, lastY + centers[centers.length-1].r + gap);
-    ctx.lineTo(x, lastY + extend);
+    ctx.moveTo(x, centers[centers.length-1].y + centers[centers.length-1].r + gap);
+    ctx.lineTo(x, botDotY);
     ctx.stroke();
 
     // Верхняя точка
     ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath();
-    ctx.arc(x, firstY - extend, dotR, 0, Math.PI * 2);
+    ctx.arc(x, topDotY, dotR, 0, Math.PI * 2);
     ctx.fill();
 
     // Нижняя точка
     ctx.beginPath();
-    ctx.arc(x, lastY + extend, dotR, 0, Math.PI * 2);
+    ctx.arc(x, botDotY, dotR, 0, Math.PI * 2);
     ctx.fill();
   }
 
