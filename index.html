@@ -1444,13 +1444,8 @@ setInterval(tick, 1000);
     ctx.lineTo(x, botDotY);
     ctx.stroke();
 
-    // Верхняя точка
-    ctx.fillStyle = 'rgba(255,255,255,0.9)';
-    ctx.beginPath();
-    ctx.arc(x, topDotY, dotR, 0, Math.PI * 2);
-    ctx.fill();
-
     // Нижняя точка
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
     ctx.beginPath();
     ctx.arc(x, botDotY, dotR, 0, Math.PI * 2);
     ctx.fill();
